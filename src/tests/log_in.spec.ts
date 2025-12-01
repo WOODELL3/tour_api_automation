@@ -1,22 +1,12 @@
+import { User } from "../../helper/interface";
 import { getUser, signUp, login } from "../../helper/user"
 
 import * as supertest from "supertest"
 const request = supertest('http://localhost:8001/api/v1/users');
 
-interface User{
-    userId?: string;
-    username?: string;
-    name: string;
-    email: string;
-    role?: string;
-    password: string;
-    passwordConfirm: string;
 
-}
 
-function deleteUser(cookie:string){
-    return request.delete('/deleteMe').set('Cookie', cookie)
-}
+
 
 describe('LOGIN', () => {
     const user: User = getUser("admin")
