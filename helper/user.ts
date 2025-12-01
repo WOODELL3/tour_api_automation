@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker"
 import * as supertest from "supertest"
+import { User } from "./interface";
 const request = supertest('http://localhost:8001/api/v1/users');
 
 
@@ -38,3 +39,28 @@ export function createRandomUser(){
     }
 }
 
+export function deleteUser(cookie:string){
+    return request.delete('/deleteMe').set('Cookie', cookie)
+}
+
+export async function updateUser(updateData: Partial<User>,token:string){
+    const res = await request
+    .patch("/updateMe")
+    .set("Authorization", `Bearer ${token}`)
+    .send(updateData)
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body.status).toBe('success');
+    return res.body.data.user
+}
+
+export async function uploadUserPhoto(filePath:string, token:string) {
+    const res = await request
+    .patch("/updateMe")
+    .set('Authorization', `Bearer ${token}`)
+    .attach('photo', filePath);
+
+    expect(res.statusCode).toBe(200);
+    expect(res.body.status).toBe('success');
+    return res.body.data.user.photo;
+}
