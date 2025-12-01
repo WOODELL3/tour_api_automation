@@ -7,19 +7,26 @@ on:
   pull_request:
     branches:
       - Master
+  schedule:
+    - cron: '0 3 * * *'   # запуск каждый день в 03:00 по UTC
+  workflow_dispatch:       # ручной запуск из Actions
 
 jobs:
-  jest-test-for-push:
-    runs-on: ubuntu-latest
+  jest-tests:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        node-version: [16, 18, 20]
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: ${{ matrix.node-version }}
 
       - name: Install dependencies
         run: npm install
