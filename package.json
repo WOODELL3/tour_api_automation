@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "createTour": "npx jest create_tour.spec.ts"
+    "createTour": "npx jest create_tour.spec.ts",
+    "testSpec": "npx jest test.spec.ts"
+
   },
   "keywords": [],
   "author": "",
