@@ -9,4 +9,24 @@ module.exports = {
   transform: {
     ...tsJestTransformCfg,
   },
+   reporters: [
+    "default",
+    [
+      "jest-junit",
+      {
+        outputDirectory: "test-reports",
+        outputName: "junit.xml",
+      },
+    ],
+    [
+      "jest-html-reporter",
+      {
+        pageTitle: "Test Report",
+        outputPath: "test-reports/test-report.html",
+        includeFailureMsg: true,
+        includeConsoleLog: true,
+      },
+    ],
+  ],
+
 };
