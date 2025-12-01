@@ -1,5 +1,5 @@
 import { User } from "../../helper/interface";
-import { getUser, signUp, login } from "../../helper/user"
+import { getUser, signUp, login, deleteUser } from "../../helper/user"
 
 import * as supertest from "supertest"
 const request = supertest('http://localhost:8001/api/v1/users');
